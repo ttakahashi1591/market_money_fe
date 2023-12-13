@@ -1,0 +1,12 @@
+<h1> Markets </h1>
+
+<% @facade.market_index.each do |market| %>
+  <ul class="market">
+    <li class="market_details">
+      <%= market.name %>
+      <%= market.city %>
+      <%= market.state %>
+      <%= button_to "More Info", market_path(market), method: :get, data: { turbo: false } %>
+    </li>
+  </ul>
+<% end %>

@@ -11,6 +11,7 @@ RSpec.describe 'Merchants Index Page', type: :feature do
     describe 'When I visit "/markets"' do
       it 'Then I will see all markets listed with their name, city, and state', :vcr do
         visit '/markets'
+
         expect(page.status_code). to eq(200)
 
         expect(page).to have_content('Markets')
