@@ -6,8 +6,8 @@ class Market
   
   def initialize(data)
     @market_id = data[:id]
-    @name = data[:name]
-    @city = data[:city]
-    @state = data[:state]
+    @name = data[:attributes][:name]
+    @city = data[:attributes][:city]
+    @state = data[:attributes][:state]
   end
 end

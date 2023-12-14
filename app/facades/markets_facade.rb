@@ -3,8 +3,18 @@ class MarketsFacade
     service = MarketMoneyService.new
 
     data = service.markets_list
-    
-    data[:data][0][:attributes].map do |data|
+ 
+    data[:data].map do |data|
+      Market.new(data)
+    end
+  end
+
+  def market_show(market_id)
+    service = MarketMoneyService.new
+
+    data = service.market(market_id)
+
+    data[:data].map do |data|
       Market.new(data)
     end
   end

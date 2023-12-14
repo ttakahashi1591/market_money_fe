@@ -15,26 +15,43 @@ RSpec.describe 'Merchants Index Page', type: :feature do
         expect(page.status_code). to eq(200)
 
         expect(page).to have_content('Markets')
-        expect(page).to have_button('More Info')
-        expect(page).to have_content('')
-        expect(page).to have_content('')
-        expect(page).to have_content('')
-        expect(page).to have_content('')
-        
+        expect(page).to have_content('Name')
+        expect(page).to have_content('City')
+        expect(page).to have_content('State')
+
+        within('#market322458') do
+          expect(page).to have_content("14&U Farmers' Market")
+          expect(page).to have_content('Washington')
+          expect(page).to have_content('District of Columbia')
+          expect(page).to have_button('More Info')
+        end
+
+        within('#market322474') do
+          expect(page).to have_content("2nd Street Farmers' Market")
+          expect(page).to have_content('Amherst')
+          expect(page).to have_content('Virginia')
+          expect(page).to have_button('More Info')
+        end    
       end
     end
 
     describe 'When I click a button to see more info on that market' do
-      it 'Then I am taken to that markets show page "/markets/:id"', :vcr do
+      it 'Then I am taken to that markets show page "/markets/:id"', :vcr do  
         visit '/markets'
+        
         expect(page.status_code). to eq(200)
 
-        expect(page).to have_content('Markets')
-        expect(page).to have_button('More Info')
+        within('#market322458') do
+          click_button 'More Info'
+          expect(current_path).to eq('/markets/322458')
+        end
 
-        click_button 'More Info'
+        visit '/markets'
 
-        expect(current_path).to eq("/markets/#{market.id}")
+        within('#market322474') do
+          click_button 'More Info'
+          expect(current_path).to eq('/markets/322474')
+        end
       end
     end
   end
